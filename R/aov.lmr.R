@@ -5,7 +5,7 @@
 #'   of these should, generally, be preferred. The function is a simple
 #'   wrapper to \link{\code{lmrobLinTest}}.
 #' @method anova lmr
-#' @export anova.lmr
+#' @export
 anova.lmr <- function(object, ...){
   o <- rev(list(object, ...))
   res <- list()

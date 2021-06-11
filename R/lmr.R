@@ -41,6 +41,9 @@ py <- function(formula, data, resid_keep_method = "proportion",
 
 #' Robust final predcition error
 #' @details This is a modified copy-paste of \code{RobStatTM::lmrobdetMM.RFPE}.
+#' @param object An object of class 'lmr'.
+#' @param scale An optional scale parameter. Defaults to \code{scale = NULL}.
+#' @export
 rfpe <- function(object, scale = NULL){
   if (!object$converged)
     warning("The algorithm did not converge, inference is not recommended.")
@@ -76,6 +79,7 @@ rfpe <- function(object, scale = NULL){
 #' Fast robust bootstrap
 #' @details This is a simple wrapper for \code{FRB::frb}.
 #' @param lmrob.object,nboot,return.coef As for \code{FRB::frb}.
+#' @export
 frb <- function(lmrob.object, nboot = 1000, return.coef = FALSE){
   if (inherits(lmrob.object, "rlm")){
     stop("engine must by lmrob, not rlm")
@@ -182,7 +186,7 @@ lmr <- function(formula, data, weights, psi = "bisquare", method = "MM",
 }
 
 #' @method summary lmr
-#' @export summary.lmr
+#' @export
 summary.lmr <- function(object, ...){
   if ("rlm" %in% class(object)){
     object$s <- object$scale
@@ -203,7 +207,8 @@ summary.lmr <- function(object, ...){
   res
 }
 
-
+#' @method print summary.lmr
+#' @export
 print.summary.lmr <- function(x, ...){
   if (inherits(x, "summary.lmrob")){
     ## Stop summarizing weights and algorithmic stuff
@@ -230,6 +235,3 @@ predict.lmr <- function(object, newdata = NULL, interval = "conf", level = 0.95,
     suppressWarnings(stats::predict.lm(object, newdata = newdata, interval = interval, level = level, ...))
   }
 }
-
-
-

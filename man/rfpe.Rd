@@ -6,6 +6,11 @@
 \usage{
 rfpe(object, scale = NULL)
 }
+\arguments{
+\item{object}{An object of class 'lmr'.}
+
+\item{scale}{An optional scale parameter. Defaults to \code{scale = NULL}.}
+}
 \description{
 Robust final predcition error
 }
