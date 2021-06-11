@@ -1,0 +1,30 @@
+Package: lmr
+Type: Package
+Title: Robust linear models with nice defaults
+Version: 0.1
+Date: 2021-06-11
+Depends:
+    ggplot2,
+    gridExtra
+Suggests:
+    knitr
+Imports:
+    MASS,
+    robustbase,
+    RobStatTM,
+    FRB
+Encoding: UTF-8
+BuildVignettes: FALSE
+Author: Harry Southworth
+Maintainer: Harry Southworth <harry.southworth@gmail.com>
+Description: Mostly simple wrappers around functions from robustbase, MASS, RobStatTM and FRB, just
+  for convenience. Also provided is an anova function (another wrapper) and an rfpe function (mostly
+  copied and pasted). The reason is to get all the functionality in one place, with default settings
+  that I almost always want to use: Pena-Yohai initial values, MM-estimation with bisquare weight
+  functions and 85% efficiency.
+License: GPL (>= 3)
+LazyLoad: yes
+LazyData: yes
+URL: https://github.com/harrysouthworth/margarita
+VignetteBuilder: knitr
+RoxygenNote: 7.1.1

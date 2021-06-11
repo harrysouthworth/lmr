@@ -1,0 +1,11 @@
+*.bbl
+*.blg
+*.log
+*~
+*.aux
+*.pdf
+*.toc
+*.tex
+.Rhistory
+..roxygen
+.Rproj.user
