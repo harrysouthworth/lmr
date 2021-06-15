@@ -12,7 +12,7 @@ lmr(
   method = "MM",
   c = 3.443689,
   engine = "lmrob",
-  maxit = 40,
+  maxit = 50,
   ...
 )
 }

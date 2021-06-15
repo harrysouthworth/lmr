@@ -42,16 +42,21 @@ py <- function(formula, data, resid_keep_method = "proportion",
 #' Robust final predcition error
 #' @details This is a modified copy-paste of \code{RobStatTM::lmrobdetMM.RFPE}.
 #' @param object An object of class 'lmr'.
-#' @param scale An optional scale parameter. Defaults to \code{scale = NULL}.
+#' @param scale The scale estimate. This must be provided: RFPE is not comparable
+#'   across models with different scale estimates. The scale estimate should be
+#'   the one from the model with the full set of predictors.
 #' @export
-rfpe <- function(object, scale = NULL){
-  if (!object$converged)
+rfpe <- function(object, scale){
+  if (!object$converged){
     warning("The algorithm did not converge, inference is not recommended.")
+  }
+
+  if (missing(scale)){
+    stop("RFPE only works if the same scale estimate is used for each model. Therefore,
+         you must provide the scale.")
+  }
 
   p <- length(object$coef)
-  if (is.null(scale)){
-    scale <- object$scale
-  }
 
   res <- residuals(object) / scale
 
@@ -82,7 +87,7 @@ rfpe <- function(object, scale = NULL){
 #' @export
 frb <- function(lmrob.object, nboot = 1000, return.coef = FALSE){
   if (inherits(lmrob.object, "rlm")){
-    stop("engine must by lmrob, not rlm")
+    stop("engine must be lmrob, not rlm")
   }
 
   FRB::frb(lmrob.object, nboot, return.coef)
@@ -141,7 +146,7 @@ frb <- function(lmrob.object, nboot = 1000, return.coef = FALSE){
 #' @importFrom MASS rlm
 #' @export lmr
 lmr <- function(formula, data, weights, psi = "bisquare", method = "MM",
-                c = 3.443689, engine = "lmrob", maxit = 40, ...){
+                c = 3.443689, engine = "lmrob", maxit = 50, ...){
   thecall <- match.call()
 
   inits <- py(formula = formula, data = data)
@@ -170,7 +175,8 @@ lmr <- function(formula, data, weights, psi = "bisquare", method = "MM",
     psi <- if (is.null(psi)) psi <- "bisquare"
 
     res <- robustbase::lmrob(formula, data, init = inits,
-                             control=robustbase::lmrob.control(tuning.psi = c))
+                             control=robustbase::lmrob.control(tuning.psi = c,
+                                                               max.it = maxit))
     res$data <- data
 
   } else {

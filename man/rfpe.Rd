@@ -4,12 +4,14 @@
 \alias{rfpe}
 \title{Robust final predcition error}
 \usage{
-rfpe(object, scale = NULL)
+rfpe(object, scale)
 }
 \arguments{
 \item{object}{An object of class 'lmr'.}
 
-\item{scale}{An optional scale parameter. Defaults to \code{scale = NULL}.}
+\item{scale}{The scale estimate. This must be provided: RFPE is not comparable
+across models with different scale estimates. The scale estimate should be
+the one from the model with the full set of predictors.}
 }
 \description{
 Robust final predcition error
