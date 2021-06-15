@@ -241,3 +241,9 @@ predict.lmr <- function(object, newdata = NULL, interval = "conf", level = 0.95,
     suppressWarnings(stats::predict.lm(object, newdata = newdata, interval = interval, level = level, ...))
   }
 }
+
+#' @method update lmr
+#' @export update.lmr
+update.lmr  <- function(object, data, ...){
+  lmr(object$formula, data = data)
+}
