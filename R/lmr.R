@@ -177,6 +177,8 @@ lmr <- function(formula, data, weights, psi = "bisquare", method = "MM",
     res <- robustbase::lmrob(formula, data, init = inits,
                              control=robustbase::lmrob.control(tuning.psi = c,
                                                                max.it = maxit))
+    res$formula <- formula
+
     res$data <- data
 
   } else {

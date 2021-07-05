@@ -21,6 +21,7 @@ ggqqplot <- function(o) {
 }
 
 #' ggplot for rlm results
+#' @aliases ggplot.lmr
 #' @param data an object of class \code{rlm}.
 #' @param hist.scale A scaleing factor for bin widths in the histogram. The default bin width
 #'        will be \code{range(resid(data))/hist.scale)}. Defaults to \code{hist.scale=10},
@@ -28,10 +29,11 @@ ggqqplot <- function(o) {
 #' @param plot. Logical indicating whether to plot. If FALSE, the function
 #'   returns a list of ggplot objects that can be passed to \code{gridExtra::grid.arrange}.
 #' @param ... Additional arguments passed to \code{ggplot}. Currently unused.
-#' @method ggplot lmr
 #' @importFrom gridExtra grid.arrange
+#' @method plot lmr
 #' @export
-ggplot.lmr <- function(data=NULL, hist.scale=10, plot.=TRUE, ...){
+plot.lmr <- function(x=NULL, hist.scale=10, plot.=TRUE, ...){
+  data <- x
   d <- data.frame(r = resid(data), f=fitted(data), o=resid(data) + fitted(data))
 
   qq <- ggqqplot(data)
@@ -63,3 +65,5 @@ ggplot.lmr <- function(data=NULL, hist.scale=10, plot.=TRUE, ...){
     list(qq, hist, fr, fo)
   }
 }
+
+ggplot.lmr <- plot.lmr
