@@ -15,7 +15,7 @@
 ##   Use robust::lmRob
 ##   Easy switch options to RobStatTM2019 proposals.
 
-#' Peno-Yohai regression estimates
+#' Pena-Yohai regression estimates
 #' @details This is a simple wrapper to \code{pyinit::pyinit} that imposes
 #'   some defaults and provides a formula/data interface.
 #' @param formula A formula describing a linear model.
@@ -229,7 +229,7 @@ print.summary.lmr <- function(x, ...){
 }
 
 #' @method predict lmr
-#' @export predict.lmr
+#' @export
 predict.lmr <- function(object, newdata = NULL, interval = "conf", level = 0.95, ...){
   if (inherits(object, "lmrob")){
     robustbase:::predict.lmrob(object, newdata = newdata, interval = interval, level = level, ...)
@@ -245,7 +245,7 @@ predict.lmr <- function(object, newdata = NULL, interval = "conf", level = 0.95,
 }
 
 #' @method update lmr
-#' @export update.lmr
+#' @export
 update.lmr  <- function(object, data, ...){
   lmr(object$formula, data = data)
 }

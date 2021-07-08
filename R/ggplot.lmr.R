@@ -66,4 +66,7 @@ plot.lmr <- function(x=NULL, hist.scale=10, plot.=TRUE, ...){
   }
 }
 
+#' ggplot method
+#' @method ggplot lmr
+#' @export
 ggplot.lmr <- plot.lmr

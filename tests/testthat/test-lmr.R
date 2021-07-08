@@ -1,11 +1,40 @@
 library(testthat)
 library(lmr)
 
+test_that("Pena-Yohai initial estimates are the same every time", {
+  liver <- texmex::liver
+
+  for (run in 1:10){
+    i <- sample(1:nrow(liver), size = nrow(liver), replace = TRUE)
+    d <- liver[i, ]
+
+    m1 <- py(log(ALT.M) ~ log(ALT.B) + log(ALP.B) + log(AST.B) + as.numeric(dose),
+             data = d)
+    m2 <- py(log(ALT.M) ~ log(ALT.B) + log(ALP.B) + log(AST.B) + as.numeric(dose),
+             data = d)
+
+    expect_identical(m1, m2, label = "py produces the same output every time")
+
+    m1 <- py(log(ALT.M) ~ log(ALT.B) + log(ALP.B) + log(AST.B) + as.numeric(dose),
+             data = d, resid_keep_method = "proportion",
+             psc_keep = .75, resid_keep_prop = .75)
+
+    expect_false(all(m1$coefficients == m2$coefficients),
+                 label = "py produces different output with different settings")
+
+    m2 <- py(log(ALT.M) ~ log(ALT.B) + log(ALP.B) + log(AST.B) + as.numeric(dose),
+             data = d, resid_keep_method = "proportion",
+             psc_keep = .75, resid_keep_prop = .75)
+
+    expect_identical(m1, m2, label = "py produces the same output every time with user-supplied settings")
+  }
+})
+
 test_that("robustbase and MASS functions give the same result", {
   liver <- texmex::liver
 
   set.seed(20210615)
-  for (i in 1:10){
+  for (run in 1:10){
     i <- sample(1:nrow(liver), size = nrow(liver), replace = TRUE)
     d <- liver[i, ]
 
