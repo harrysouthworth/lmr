@@ -47,14 +47,14 @@ plot.lmr <- function(x=NULL, hist.scale=10, plot.=TRUE, ...){
 
   fr <- ggplot(d, aes(f, r)) +
     geom_point(color="blue") +
-    stat_smooth(method="loess", color="orange",
+    stat_smooth(method="loess", color="orange", formula = y ~ x,
                 method.args=list(span=2/3, family="symmetric", degree=1)) +
     scale_x_continuous("Fitted values") +
     scale_y_continuous("Residuals")
 
   fo <-  ggplot(d, aes(f, o)) +
     geom_point(color="blue") +
-    stat_smooth(method="loess", color="orange",
+    stat_smooth(method="loess", color="orange", formula = y ~ x,
                 method.args=list(span=2/3, family="symmetric", degree=1)) +
     scale_x_continuous("Fitted values") +
     scale_y_continuous("Observed values")

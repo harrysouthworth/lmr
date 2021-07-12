@@ -2,7 +2,7 @@
 % Please edit documentation in R/lmr.R
 \name{py}
 \alias{py}
-\title{Peno-Yohai regression estimates}
+\title{Pena-Yohai regression estimates}
 \usage{
 py(
   formula,
@@ -23,7 +23,7 @@ py(
 \code{pyinit::pyinit} insists the user decides upon.}
 }
 \description{
-Peno-Yohai regression estimates
+Pena-Yohai regression estimates
 }
 \details{
 This is a simple wrapper to \code{pyinit::pyinit} that imposes
