@@ -26,8 +26,8 @@
 #' @export
 py <- function(formula, data, resid_keep_method = "proportion",
                psc_keep = .5, resid_keep_prop = .5, ...){
-  mf <- model.frame(formula, data)
-  mm <- model.matrix(formula, data)
+  mf <- model.frame(formula, data) %>% droplevels()
+  mm <- model.matrix(formula, droplevels(data))
   resp <- model.response(mf)
 
   ## Whether an intercept is present is determined by the formula
