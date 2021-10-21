@@ -5,7 +5,7 @@
 \alias{ggplot.lmr}
 \title{ggplot for rlm results}
 \usage{
-\method{plot}{lmr}(x = NULL, hist.scale = 10, plot. = TRUE, ...)
+\method{plot}{lmr}(x = NULL, hist.scale = 10, plot. = TRUE, caption = NULL, ...)
 }
 \arguments{
 \item{hist.scale}{A scaleing factor for bin widths in the histogram. The default bin width
@@ -14,6 +14,8 @@ which is smaler than the \code{ggplot} default of 30.}
 
 \item{plot.}{Logical indicating whether to plot. If FALSE, the function
 returns a list of ggplot objects that can be passed to \code{gridExtra::grid.arrange}.}
+
+\item{caption}{A caption to appear at the bottom left of the plot}
 
 \item{...}{Additional arguments passed to \code{ggplot}. Currently unused.}
 

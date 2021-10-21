@@ -1,9 +1,3 @@
-#' Robust analysis of variance type tests.
-#' @param object,... Robust linear models fit by \code{robustbase::lmrob}.
-#' @details The first object must be the model with the least terms.The results of
-#'   the robust F-test and robust chi-squared test are both returned. The second
-#'   of these should, generally, be preferred. The function is a simple
-#'   wrapper to \link{\code{lmrobLinTest}}.
 #' @method anova lmr
 #' @export
 anova.lmr <- function(object, ...){
@@ -48,16 +42,18 @@ anova.lmr <- function(object, ...){
 
 
 #' Robust likelihood ratio test for linear hypotheses
-#'
-#' This function computes a robust likelihood ratio test for linear hypotheses.
-#'
-#' @export  lmrobLinTest
+#' @details This function computes a robust likelihood ratio test for linear hypotheses.
+#'   The first object must be the model with the least terms.The results of
+#'   the robust F-test and robust chi-squared test are both returned. The second
+#'   of these should, generally, be preferred. The function \code{anova.lmr} is a simple
+#'   wrapper to \code{lmrobLinTest} in package RobStatTM. \code{anova.lmr}
+#'   will take multiple model objects, not just 2, and it rearranges the output.
+#' @aliases anova.lmr
+#' @export lmrobLinTest
 #' @rdname lmrobLinTest
-#'
 #' @param object1 an \code{lmrob} object with the fit corresponding to the complete model
 #' @param object2 an \code{lmrob} object with the fit corresponding to the model
 #' restricted under the null linear hypothesis.
-#'
 #' @return A list with the following components: c("test","chisq.pvalue","f.pvalue","df")
 #' \item{test}{The value of the F-statistic}
 #' \item{f.pvalue}{p-value based on the F distribution}

@@ -4,7 +4,7 @@
 \alias{ggplot.lmr}
 \title{ggplot method}
 \usage{
-\method{ggplot}{lmr}(x = NULL, hist.scale = 10, plot. = TRUE, ...)
+\method{ggplot}{lmr}(x = NULL, hist.scale = 10, plot. = TRUE, caption = NULL, ...)
 }
 \description{
 ggplot method
