@@ -76,7 +76,7 @@ lmrobLinTest <- function (object1, object2){
   n <- length(na.omit(object1$resid))
 
   if (q <= 0){
-    stop("Contrary to other anova functions, the largest model must be the first.")
+    stop("The smallest model must be the first.")
   }
 
   if (length(na.omit(object2$resid)) != n){

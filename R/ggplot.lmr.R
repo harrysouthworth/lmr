@@ -28,11 +28,12 @@ ggqqplot <- function(o) {
 #'        which is smaler than the \code{ggplot} default of 30.
 #' @param plot. Logical indicating whether to plot. If FALSE, the function
 #'   returns a list of ggplot objects that can be passed to \code{gridExtra::grid.arrange}.
+#' @param caption A caption to appear at the bottom left of the plot
 #' @param ... Additional arguments passed to \code{ggplot}. Currently unused.
 #' @importFrom gridExtra grid.arrange
 #' @method plot lmr
 #' @export
-plot.lmr <- function(x=NULL, hist.scale=10, plot.=TRUE, ...){
+plot.lmr <- function(x=NULL, hist.scale=10, plot.=TRUE, caption = NULL, ...){
   data <- x
   d <- data.frame(r = resid(data), f=fitted(data), o=resid(data) + fitted(data))
 
@@ -58,6 +59,10 @@ plot.lmr <- function(x=NULL, hist.scale=10, plot.=TRUE, ...){
                 method.args=list(span=2/3, family="symmetric", degree=1)) +
     scale_x_continuous("Fitted values") +
     scale_y_continuous("Observed values")
+
+  if (!is.null(caption)){
+    fo <- fo + labs(caption = caption)
+  }
 
   if (plot.){
     gridExtra::grid.arrange(qq, hist, fr, fo)
