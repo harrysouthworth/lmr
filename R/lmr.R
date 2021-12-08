@@ -133,7 +133,8 @@ frb <- function(lmrob.object, nboot = 1000, return.coef = FALSE){
 #'        efficiencies appear in Seciton 2.2 of Maronna et al.
 #'
 #'        Following the Second Edition of the book, the function now works with
-#'        Peno-Yohai initial estimates with specified defaults.
+#'        Peno-Yohai initial estimates with specified defaults. If the Peno-Yohai
+#'        procedure fails, least trimmed squares is attempted.
 #'
 #'        Note that \code{rlm} produces an object
 #'        that inherits from \code{lm}, but \code{lmr} does not in order to avoid
@@ -149,7 +150,16 @@ lmr <- function(formula, data, weights, psi = "bisquare", method = "MM",
                 c = 3.443689, engine = "lmrob", maxit = 50, ...){
   thecall <- match.call()
 
-  inits <- py(formula = formula, data = data)
+  inits <- try(py(formula = formula, data = data), silent = TRUE)
+  if (class(inits) == "try-error"){
+    message("pyinit failed, trying lts")
+    inits <- MASS::ltsreg(formula, data)
+    if (engine == "rlm"){
+      inits <- coef(inits)
+    } else if (engine == "lmrob"){
+      inits <- list(coefficients = coef(inits), scale = inits$scale[1])
+    }
+  }
 
   if (engine == "rlm") {
     if (psi == "bisquare") psiFun <- MASS::psi.bisquare
