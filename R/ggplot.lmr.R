@@ -41,8 +41,8 @@ plot.lmr <- function(x=NULL, hist.scale=10, plot.=TRUE, caption = NULL, ...){
 
   bin <- diff(range(d$r, na.rm=TRUE) / hist.scale)
   hist <- ggplot() +
-    geom_histogram(data=d, aes(r, ..density..), fill="blue", binwidth=bin) +
-    geom_density(data=d, aes(r, ..density..), color="light blue" ) +
+    geom_histogram(data=d, aes(r, after_stat(density)), fill="blue", binwidth=bin) +
+    geom_density(data=d, aes(r, after_stat(density)), color="light blue" ) +
     geom_rug(data=d, aes(r), color="orange" ) +
     scale_x_continuous("Residuals")
 

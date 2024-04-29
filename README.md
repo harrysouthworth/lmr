@@ -11,3 +11,5 @@ The main purpose of this package is to get the defaults that I want,
 have everything in one place, and to be able to compare robustbase::lmrob
 with MASS::rlm for testing purposes.
 
+2024-04-29
+Changed ..density.. to after_stat(density) to stop ggplot complaining.
